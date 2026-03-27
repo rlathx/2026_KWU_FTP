@@ -14,19 +14,11 @@ extern int optind;
 // ------------------------------------------------------------------------------------------- //
 // Title : System Programming Assignment #1-1 ( ftp server )                                   //
 // Description :                                                                               //
-// This program is designed to learn how to handle command-line arguments                      //
-// using the getopt() function in C and to implement behavior based on given options.          //
-// The program supports -a, -b, and -c options, and checks whether each option is provided,    //
-// then outputs the corresponding results.                                                     //
-// In particular, the -c option requires an additional argument, which is received             //
-// and processed through optarg.                                                               //
-// The getopt() function determines valid options based on the optstring and                   //
-// sequentially analyzes each option, while optind manages the index of the next               //
-// argument to be processed.                                                                   //
-// Additionally, by setting opterr to 0, the default error message for invalid options         //
-// is suppressed, allowing custom error handling.                                              //
-// Finally, after processing all options, the remaining non-option arguments are               //
-// iterated and printed starting from the position indicated by optind.                        //
+// This program demonstrates how to parse command-line arguments                               //
+// using the getopt() function in C.                                                           //
+// It handles -a, -b, and -c options, where -c receives an additional argument via optarg.     //
+// The parsing process is managed using optstring, optind,                                     //
+// and optional error control through opterr.                                                  //
 //                                                                                             //
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
