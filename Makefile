@@ -1,9 +1,11 @@
-OBJS = 2024402034_opt.c
+OBJS = kw2024402034_opt.c
 CC = gcc
-EXEC = testopt
+EXEC = kw2024402034_opt
 
-testopt: $(OBJS)
+all: $(EXEC)
+
+$(EXEC): $(OBJS)
 	$(CC) -o $@ $^
 
-clean: 
+clean:
 	rm -rf $(EXEC)
