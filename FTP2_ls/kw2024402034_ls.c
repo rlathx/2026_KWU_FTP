@@ -2,6 +2,25 @@
 #include <dirent.h>
 #include <stdio.h>
 #include <errno.h>
+#include <string.h>
+
+///////////////////////////////////////////////////////////////////////////////
+// File Name : kw2024402034_ls.c
+// Date      : 2026/03/29
+// OS        : Ubuntu 20.04.6 LTS 64bits
+// Author    : Kim Tae Hyeon
+// Student ID: 2024402034
+// -------------------------------------------------------------------- //
+// Title     : System Programming Assignment #1-2 ( ftp server )   
+// Description : ...
+//
+//
+//
+//
+//
+//
+//
+///////////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char *argv[]) {
     DIR* dp; 
@@ -15,27 +34,32 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    // 대상 디렉토리 설정 (인자가 없으면 현재 디렉토리 ".")
+    // set target directory (if not an argument, target dir == present dir(./))
     if (argc == 1) {
         path = ".";
     } else {
         path = argv[1];
     }
 
-    // 디렉토리 열기 
+    // open directory
     dp = opendir(path);
-
-    // error 2. 존재하지 않는 dir
-    // error 3. 접근 권한 없음
+    
+    // error control
     if (dp == NULL) {
-        if (errno == ENOENT) { // 파일이나 디렉토리가 없는 경우
-            printf("%s: cannot access '%s': No such directory\n", argv[0], path);
+
+        char *programName = strrchr(argv[0], '/');
+        programName++;
+
+        if ((errno == ENOENT) || (errno == ENOTDIR)) { 
+            // error 2. 존재하지 않는 dir
+            // error 3. ENOTDIR - 존재하지만 dir이 아닌 file type
+            printf("%s: cannot access '%s': No such directory\n", programName, path);
         } 
-        else if (errno == EACCES) { // 권한이 거부된 경우 (Permission denied)
-            printf("%s: cannot access '%s': Access denied\n", argv[0], path);
+        else if (errno == EACCES) { 
+            // error 4. EACCES - 존재하지만 접근 권한 없음
+            printf("%s: cannot access '%s': Access denied\n", programName, path);
         } 
 
-        closedir(dp);
         return 0;
     }
 
