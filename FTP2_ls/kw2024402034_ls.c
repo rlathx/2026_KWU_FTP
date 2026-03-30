@@ -4,23 +4,24 @@
 #include <errno.h>
 #include <string.h>
 
-///////////////////////////////////////////////////////////////////////////////
-// File Name : kw2024402034_ls.c
-// Date      : 2026/03/29
-// OS        : Ubuntu 20.04.6 LTS 64bits
-// Author    : Kim Tae Hyeon
-// Student ID: 2024402034
-// -------------------------------------------------------------------- //
-// Title     : System Programming Assignment #1-2 ( ftp server )   
-// Description : ...
-//
-//
-//
-//
-//
-//
-//
-///////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// File Name : kw2024402034_ls.c                                                                  //
+// Date      : 2026/03/29                                                                         //
+// OS        : Ubuntu 20.04.6 LTS 64bits                                                          //
+// Author    : Kim Tae Hyeon                                                                      //
+// Student ID: 2024402034                                                                         //
+// ---------------------------------------------------------------------------------------------- //
+// Title     : System Programming Assignment #1-2 ( ftp server )                                  //
+// Description :                                                                                  //
+// This program lists the files and directories within a specified path.                          //
+// If no argument is provided, it defaults to the current directory (.).                          //
+// It handles exceptions for excessive arguments and uses opendir() to access the target path,    //
+// with specific error handling for non-existent paths (ENOENT), non-directory files (ENOTDIR),   //
+// and permission denials (EACCES).                                                               //
+// It then sequentially prints the names of all entries using readdir()                           //
+// before releasing system resources with closedir().                                             //
+//                                                                                                //
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char *argv[]) {
     DIR* dp; 
@@ -34,7 +35,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    // set target directory (if not an argument, target dir == present dir(./))
+    // set the target directory
     if (argc == 1) {
         path = ".";
     } else {
@@ -44,7 +45,7 @@ int main(int argc, char *argv[]) {
     // open directory
     dp = opendir(path);
     
-    // error control
+    // error handling
     if (dp == NULL) {
 
         char *programName = strrchr(argv[0], '/');
@@ -63,12 +64,12 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    // 디렉토리 순회 및 파일 이름 출력 (File names only)
+    // read directory entry (File names only)
     while ((dirp = readdir(dp)) != NULL) {
         printf("%s\n", dirp->d_name);
     }
 
-    // 5. 디렉토리 닫기
+    // close directory
     closedir(dp);
 
     return 0;
