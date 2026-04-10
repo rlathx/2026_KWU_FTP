@@ -1,11 +1,15 @@
-OBJS = kw2024402034_ls.c
+CLI_SRC = cli.c
+SVR_SRC = svr.c
 CC = gcc
-EXEC = kw2024402034_ls
+CLI_EXEC = cli
+SVR_EXEC = svr
 
-all: $(EXEC)
+all: $(CLI_OBJS) $(SVR_OBJS)
 
-$(EXEC): $(OBJS)
+$(CLI_EXEC): $(CLI_SRC)
 	$(CC) -o $@ $^
 
+$(SVR_EXEC): $(SVR_SRC)
+	$(CC) -o $@ $^
 clean:
-	rm -rf $(EXEC)
+	rm -rf $(CLI_EXEC) $(SVR_EXEC)
