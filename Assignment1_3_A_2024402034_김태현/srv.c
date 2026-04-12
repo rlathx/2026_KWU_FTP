@@ -1,6 +1,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <fcntl.h>
 
 #define MAX_BUF 1024
 
@@ -37,7 +40,7 @@ int main(int argc, char **argv){
         write(STDOUT_FILENO, "\'", 2);
         write(STDOUT_FILENO, currentWD, strlen(currentWD));
         write(STDOUT_FILENO, "\'", 2);
-        write(STDOUT_FILENO, " is current directory", 22);
+        write(STDOUT_FILENO, " is current directory\n", 23);
     }
     else if (strncmp(FTPcommand, "CWD", 3) == 0) {
         strtok(FTPcommand, " ");
@@ -128,11 +131,44 @@ int main(int argc, char **argv){
             exit(1);
         }
     }
-    else if (strncmp(FTPcommand, "RETR", 4) == 0) {
+    else if (strncmp(FTPcommand, "RETR", 4) == 0) { // get
+        // 1. 파일명 추출
+        strtok(FTPcommand, " ");
+        char* filename = strtok(NULL, " ");
+
+        // 2. 경로 설정
+        char pathFR[MAX_BUF]; // from server_root
+        strcpy(pathFR, "server_root/");
+        strcat(pathFR, filename);
+
+        char pathTO[MAX_BUF]; // to client_root
+        strcpy(pathTO, "client_root/");
+        strcat(pathTO, filename);
+
+        // 3. 파일 존재 여부 확인
+        int fdFR = open(pathFR, O_RDONLY);
+        if(fdFR == -1){
+            write(STDERR_FILENO, "Error: \'", 9);
+            write(STDERR_FILENO, filename, strlen(filename));
+            write(STDERR_FILENO, "\' does not exist in server_root\n", 33);
+            
+            exit(1);
+        }
+
+        int fdTO = open(pathTO, 0655);
+        if(fdTO == -1){
+            write(STDERR_FILENO, "Error: \'", 9);
+            write(STDERR_FILENO, filename, strlen(filename));
+            write(STDERR_FILENO, "\' does not exist in server_root\n", 33);
+            
+            exit(1);
+        }
+
+        close(fdFR);
+        close(fdTO);
     }
-    else if (strncmp(FTPcommand, "STOR", 4) == 0) {
-        // [STOR 처리] 파일 수신(업로드) 로직 예정
-        write(STDOUT_FILENO, "Processing PUT...\n", 18);
+    else if (strncmp(FTPcommand, "STOR", 4) == 0) { // put
+        
     }
     else if (strncmp(FTPcommand, "QUIT", 4) == 0) {
         write(STDOUT_FILENO, "Quit success\n", 14);

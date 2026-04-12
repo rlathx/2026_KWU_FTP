@@ -1,10 +1,10 @@
 CLI_SRC = cli.c
-SVR_SRC = svr.c
+SVR_SRC = srv.c
 CC = gcc
 CLI_EXEC = cli
-SVR_EXEC = svr
+SVR_EXEC = srv
 
-all: $(CLI_OBJS) $(SVR_OBJS)
+all: $(CLI_EXEC) $(SVR_EXEC)
 
 $(CLI_EXEC): $(CLI_SRC)
 	$(CC) -o $@ $^

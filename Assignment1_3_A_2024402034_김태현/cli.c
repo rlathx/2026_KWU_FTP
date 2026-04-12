@@ -18,9 +18,41 @@ int main(int argc, char **argv) {
     if (strcmp(argv[1], "ls") == 0) {
         strcpy(FTPcommand, "NLST");
         
+        for(int i = 2; i < argc; i++){
+            if(argv[i][0] == '-'){
+                // [error - ls] 잘못된 옵션이 포함된 경우
+                if((strcmp(argv[i], "-a") != 0) && (strcmp(argv[i], "-l") != 0) && (strcmp(argv[i], "-al") != 0)){
+                    char *error_msg = "Error: invalid option\n";
+                    write(STDERR_FILENO, error_msg, strlen(error_msg));
+                    exit(1);
+                }
+            }
+
+            // [error - ls] 와일드카드 '*' 체크
+            if (strchr(argv[i], '*') != NULL) {
+                char *error_msg = "Error: wildcard (*) is not supported\n";
+                write(STDERR_FILENO, error_msg, strlen(error_msg));
+                exit(1);
+            }
+
+            strcat(FTPcommand, " ");
+            strcat(FTPcommand, argv[i]);
+        }
     } 
     else if (strcmp(argv[1], "dir") == 0) {
         strcpy(FTPcommand, "LIST");
+
+        for (int i = 2; i < argc; i++) {
+            // [error - dir] 옵션이 포함된 경우
+            if (argv[i][0] == '-') {
+                char *error_msg = "Error: invalid option\n";
+                write(STDERR_FILENO, error_msg, strlen(error_msg));
+                exit(1);
+            }
+
+            strcat(FTPcommand, " ");
+            strcat(FTPcommand, argv[i]);
+        }
     } 
     else if (strcmp(argv[1], "pwd") == 0) {
         if (argc == 2) {
