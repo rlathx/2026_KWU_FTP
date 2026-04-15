@@ -19,6 +19,20 @@ void itoc(long n);
 void writePermissions(mode_t mode);
 void myls(char *option, char *path);
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// File Name : svr.c                                                                              //
+// Date      : 2026/04/15                                                                         //
+// OS        : Ubuntu 20.04.6 LTS 64bits                                                          //
+// Author    : Kim Tae Hyeon                                                                      //
+// Student ID: 2024402034                                                                         //
+// ---------------------------------------------------------------------------------------------- //
+// Title     : System Programming Assignment #1-3 ( ftp server )                                  //
+// Description :                                                                                  //
+// This program interprets FTP commands received from the client,                                 //
+// performs the corresponding operations, and outputs the results.                                //
+//                                                                                                //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int main(){
     // 1. 버퍼 생성 및 초기화
     char FTPcommand[MAX_BUF];
@@ -295,7 +309,18 @@ int main(){
     exit(0);
 }
 
-// 1. 숫자를 직접 문자열로 변환하여 write하는 헬퍼 함수
+/////////////////////////////////////////////////////////////////////////
+// itoc                                                                // 
+// =================================================================== //
+// Input: long n -> Integer value to convert                           //
+//                                                                     //
+// Output: void                                                        //
+//                                                                     //
+// Purpose:                                                            //
+// Converts an integer to an ASCII string                              //
+// and writes it directly to standard output (STDOUT).                 //      
+//                                                                     //
+/////////////////////////////////////////////////////////////////////////
 void itoc(long n) {
     char buf[20];
     int i = 0;
@@ -312,7 +337,18 @@ void itoc(long n) {
     }
 }
 
-// 2. 권한 문자열을 직접 write하는 함수
+/////////////////////////////////////////////////////////////////////////
+// writePermissions                                                    // 
+// =================================================================== //
+// Input: mode_t mode -> File status information                       //
+//                                                                     //
+// Output: void                                                        //
+//                                                                     //
+// Purpose:                                                            //
+// Interprets the file mode bits                                       //
+// and outputs a 10-digit permission string (e.g., drwxr-xr-x).        //      
+//                                                                     //
+/////////////////////////////////////////////////////////////////////////
 void writePermissions(mode_t mode) {
     char perm[10];
     perm[0] = (S_ISDIR(mode)) ? 'd' : '-';
@@ -329,7 +365,19 @@ void writePermissions(mode_t mode) {
     write(STDOUT_FILENO, " ", 1);
 }
 
-// 3. 메인 ls 로직
+/////////////////////////////////////////////////////////////////////////
+// myls                                                                // 
+// =================================================================== //
+// Input: char *option -> String of ls execution options and arguments //
+//        char *path -> Path to the target directory or file to list   //
+//                                                                     //
+// Output: void                                                        //
+//                                                                     //
+// Purpose:                                                            //
+// Outputs a list of files in the specified path,                      //
+// sorted and formatted according to the options.                      //      
+//                                                                     //
+/////////////////////////////////////////////////////////////////////////
 void myls(char *option, char *path) {
     struct dirent **namelist;
     struct stat st;

@@ -4,6 +4,20 @@
 
 #define MAX_BUF 1024
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// File Name : cli.c                                                                              //
+// Date      : 2026/04/15                                                                         //
+// OS        : Ubuntu 20.04.6 LTS 64bits                                                          //
+// Author    : Kim Tae Hyeon                                                                      //
+// Student ID: 2024402034                                                                         //
+// ---------------------------------------------------------------------------------------------- //
+// Title     : System Programming Assignment #1-3 ( ftp server )                                  //
+// Description :                                                                                  //
+// This program performs the role of converting commands entered by the user into FTP commands    //
+// and transmitting them to the server, or outputting appropriate error messages.                 //
+//                                                                                                //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 int main(int argc, char **argv) {
     // [error] 인자가 없으면 바로 종료
     if(argc < 2){
