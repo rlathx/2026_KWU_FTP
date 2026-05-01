@@ -24,8 +24,38 @@ int cmd_process(char *buff, char *result_buff);
 void itoc(long n, char *result_buff);
 void writePermissions(mode_t mode, char *result_buff);
 int myls(char *option, char *path, char *result_buff);
-void append_result(char *result_buff, const char *fmt, ...);
 
+///////////////////////////////////////////////////////////////////////////
+// File Name    :srv.c                                                   //
+// Date         :2026/05/01                                              //
+// OS       :Ubuntu 20.04.6 LTS 64bits                                   //
+// Author   : Kim Tae Hyeon                                              //
+// Student ID   :2024402034                                              //
+//  -------------------------------------------------------------------- //
+// Title    :System Programming Assignment #2-1 ( ftp server )           //
+// Description:                                                          //
+// This program implements a simple FTP server using TCP socket.         //
+// The server receives converted FTP commands from the client,           //
+// processes NLST and QUIT commands, and sends the result back           //
+// to the client.                                                        //
+//                                                                       //
+///////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////
+// main                                                                //
+// =================================================================== //
+// Input: int argc -> Number of command line arguments                 //
+//        char **argv -> Command line arguments                        //
+//                                                                     //
+// Output: int                                                         //
+//                                                                     //
+// Purpose:                                                            //
+// Creates a TCP server socket, binds it to the given port,            //
+// waits for client connection, receives FTP commands from client,     //
+// sends processed results back to client, and terminates server       //
+// when QUIT command is received.                                      //
+//                                                                     //
+/////////////////////////////////////////////////////////////////////////
 int main(int argc, char **argv)
 {
     char buff[MAX_BUFF], result_buff[SEND_BUFF];
@@ -100,9 +130,10 @@ int main(int argc, char **argv)
 
             if (!strcmp(result_buff, "QUIT"))
             {
-                write(STDOUT_FILENO, "QUIT\n", strlen("QUIT\n"));
+                write(STDOUT_FILENO, "QUIT\n", 6);
                 close(connfd);
-                break;
+                close(serverfd);
+                return 0;
             }
         }
     }
@@ -112,7 +143,7 @@ int main(int argc, char **argv)
 }
 
 /////////////////////////////////////////////////////////////////////////
-// client_info                                                         // 
+// client_info                                                         //
 // =================================================================== //
 // Input: struct sockaddr_in *cliaddr -> Client socket address          //
 //                                                                     //
@@ -144,7 +175,7 @@ int client_info(struct sockaddr_in *cliaddr)
 }
 
 /////////////////////////////////////////////////////////////////////////
-// cmd_process                                                         // 
+// cmd_process                                                         //
 // =================================================================== //
 // Input: char *buff -> FTP command received from client                //
 //        char *result_buff -> Buffer to store command result           //
@@ -210,7 +241,7 @@ int cmd_process(char *buff, char *result_buff)
 }
 
 /////////////////////////////////////////////////////////////////////////
-// itoc                                                                // 
+// itoc                                                                //
 // =================================================================== //
 // Input: long n -> Integer value to convert                           //
 //        char *result_buff -> Buffer to store converted result         //
@@ -248,7 +279,7 @@ void itoc(long n, char *result_buff)
 }
 
 /////////////////////////////////////////////////////////////////////////
-// writePermissions                                                    // 
+// writePermissions                                                    //
 // =================================================================== //
 // Input: mode_t mode -> File status information                       //
 //        char *result_buff -> Buffer to store permission string        //
@@ -288,7 +319,7 @@ void writePermissions(mode_t mode, char *result_buff)
 }
 
 /////////////////////////////////////////////////////////////////////////
-// myls                                                                // 
+// myls                                                                //
 // =================================================================== //
 // Input: char *option -> ls option                                    //
 //        char *path -> target path                                    //
@@ -455,29 +486,3 @@ int myls(char *option, char *path, char *result_buff)
     return 0;
 }
 
-/////////////////////////////////////////////////////////////////////////
-// append_result                                                       // 
-// =================================================================== //
-// Input: char *result_buff -> Buffer to store result                   //
-//        const char *fmt -> Format string                              //
-//                                                                     //
-// Output: void                                                        //
-//                                                                     //
-// Purpose:                                                            //
-// Appends formatted string to result buffer.                          //
-//                                                                     //
-/////////////////////////////////////////////////////////////////////////
-void append_result(char *result_buff, const char *fmt, ...)
-{
-    va_list ap;
-    int len;
-
-    len = strlen(result_buff);
-
-    if (len >= SEND_BUFF - 1)
-        return;
-
-    va_start(ap, fmt);
-    vsnprintf(result_buff + len, SEND_BUFF - len, fmt, ap);
-    va_end(ap);
-}

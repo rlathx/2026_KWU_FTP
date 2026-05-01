@@ -10,6 +10,38 @@
 
 int conv_cmd(char *buff, char *cmd_buff);
 void process_result(char *rcv_buff);
+ 
+////////////////////////////////////////////////////////////////////////////////////
+// File Name    : cli.c                                                           //
+// Date         : 2026/05/01                                                      //
+// OS           : Ubuntu 20.04.6 LTS 64bits                                       //
+// Author       : Kim Tae Hyun                                                    //
+// Student ID   : 2024402034                                                      //
+// ------------------------------------------------------------------------------ //
+// Title        : System Programming Assignment #2-1 ( FTP Client )               //
+// Description  :                                                                 //
+// This program implements a simple FTP client using TCP socket.                  //
+// The client connects to the server using the given IP and port,                 //
+// converts user commands into FTP command format, sends them                     //
+// to the server, and displays the received result.                               //
+//                                                                                //
+////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////
+// main                                                                //
+// =================================================================== //
+// Input: int argc -> Number of command line arguments                 //
+//        char **argv -> Command line arguments                        //
+//                                                                     //
+// Output: int                                                         //
+//                                                                     //
+// Purpose:                                                            //
+// Creates a TCP client socket, connects to the server using           //
+// the given IP address and port number, receives user commands,       //
+// converts them into FTP command format, sends them to the server,    //
+// and displays the result received from the server.                   //
+//                                                                     //
+/////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char **argv)
 {
