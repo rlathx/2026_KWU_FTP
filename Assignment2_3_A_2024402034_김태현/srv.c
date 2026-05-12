@@ -1,3 +1,21 @@
+///////////////////////////////////////////////////////////////////////////////
+// File Name    : srv.c
+// Date         : 2026/05/12
+// OS           : Ubuntu 20.04.6 LTS 64bits
+// Author       : Kim Tae Hyeon
+// Student ID   : 2024402034
+// ---------------------------------------------------------------------------
+// Title        : System Programming Assignment #2-3 ( FTP Server )
+// Description  :
+// This program implements a concurrent FTP server using TCP socket and fork.
+// The server waits for client connections, creates a child process for each
+// connected client, receives FTP commands from the client, executes the command,
+// and returns the result to the client. The parent process manages child process
+// information such as PID, client port number, and service time. Signal handlers
+// are used to handle child termination, periodic process-list output, and server
+// termination by Ctrl+C.
+///////////////////////////////////////////////////////////////////////////////
+
 #define _DEFAULT_SOURCE
 
 #include <stdio.h>
@@ -48,6 +66,20 @@ ClientInfo client_list[MAX_CLIENT];
 int client_count = 0;
 int server_fd_global = -1;
 
+///////////////////////////////////////////////////////////////////////////////////////
+// main
+// ===================================================================
+// Input: int argc -> Number of command line arguments
+//        char **argv -> Port number used by the server
+//
+// Output: int -> 0 when the program terminates normally
+//
+// Purpose:
+// Creates a server socket, binds it to the given port, and waits for clients.
+// When a client connects, the server creates a child process using fork().
+// The parent process manages client information and waits for new clients,
+// while the child process receives and processes FTP commands from the client.
+///////////////////////////////////////////////////////////////////////////////////////
 int main(int argc, char **argv)
 {
     char buff[MAX_BUFF];
@@ -181,6 +213,18 @@ int main(int argc, char **argv)
     return 0;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
+// client_info
+// ===================================================================
+// Input: struct sockaddr_in *cliaddr -> Connected client address information
+//
+// Output: int -> 0 when client information is printed successfully
+//
+// Purpose:
+// Prints the connected client's IP address and port number.
+// This function is called by the parent process immediately after
+// a client connects to the server.
+///////////////////////////////////////////////////////////////////////////////////////
 int client_info(struct sockaddr_in *cliaddr)
 {
     char port_buff[100];
@@ -202,6 +246,20 @@ int client_info(struct sockaddr_in *cliaddr)
     return 0;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
+// cmd_process
+// ===================================================================
+// Input: char *buff -> FTP command received from the client
+//        char *result_buff -> Buffer to store the command execution result
+//
+// Output: int -> 0 after command processing
+//
+// Purpose:
+// Parses the FTP command received from the client and executes the corresponding
+// operation. The result of the execution is stored in result_buff and later sent
+// back to the client. For display purposes, the server prints the original
+// user-level command format with the child process PID.
+///////////////////////////////////////////////////////////////////////////////////////
 int cmd_process(char *buff, char *result_buff)
 {
     char FTPcommand[MAX_BUFF];
@@ -535,6 +593,18 @@ int cmd_process(char *buff, char *result_buff)
 
     return 0;
 }
+
+///////////////////////////////////////////////////////////////////////////////////////
+// append_num
+// ===================================================================
+// Input: char *result_buff -> Buffer to append the converted number
+//        long n -> Number to convert into string format
+//
+// Output: void
+//
+// Purpose:
+// Converts a number into a string and appends it to result_buff.
+///////////////////////////////////////////////////////////////////////////////////////
 void append_num(char *result_buff, long n)
 {
     char buf[32];
@@ -542,6 +612,18 @@ void append_num(char *result_buff, long n)
     strcat(result_buff, buf);
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
+// writePermissions
+// ===================================================================
+// Input: mode_t mode -> File mode information obtained from stat or lstat
+//        char *result_buff -> Buffer to store the permission string
+//
+// Output: void
+//
+// Purpose:
+// Converts file permission bits into a permission string such as drwxr-xr-x
+// and appends the result to result_buff.
+///////////////////////////////////////////////////////////////////////////////////////
 void writePermissions(mode_t mode, char *result_buff)
 {
     char perm[11];
@@ -569,6 +651,22 @@ void writePermissions(mode_t mode, char *result_buff)
     strcat(result_buff, " ");
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
+// myls
+// ===================================================================
+// Input: char *option -> Option string for ls command, such as -a, -l, or -al
+//        char *path -> Target file or directory path
+//        char *result_buff -> Buffer to store the listing result
+//
+// Output: int -> 0 if listing succeeds
+//              -1 if the path cannot be accessed
+//
+// Purpose:
+// Implements the NLST and LIST command behavior.
+// It lists files in the target path and formats the result according to
+// the given option. The output is stored in result_buff instead of being
+// printed directly, so it can be sent to the client through the socket.
+///////////////////////////////////////////////////////////////////////////////////////
 int myls(char *option, char *path, char *result_buff)
 {
     struct dirent **namelist;
@@ -717,6 +815,19 @@ int myls(char *option, char *path, char *result_buff)
     return 0;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
+// add_client
+// ===================================================================
+// Input: pid_t pid -> Child process ID created for the connected client
+//        int port -> Client port number
+//
+// Output: void
+//
+// Purpose:
+// Stores information about a newly connected client process.
+// The stored information includes child PID, client port number,
+// and the time when the client connected.
+///////////////////////////////////////////////////////////////////////////////////////
 void add_client(pid_t pid, int port)
 {
     if (client_count >= MAX_CLIENT)
@@ -728,6 +839,19 @@ void add_client(pid_t pid, int port)
     client_count++;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
+// remove_client
+// ===================================================================
+// Input: pid_t pid -> PID of the terminated child process
+//
+// Output: void
+//
+// Purpose:
+// Removes the information of the terminated child process from client_list.
+// When a child process terminates, the parent process receives SIGCHLD,
+// collects the child process, and calls this function to delete the matching
+// PID from the current client process list.
+///////////////////////////////////////////////////////////////////////////////////////
 void remove_client(pid_t pid)
 {
     for (int i = 0; i < client_count; i++)
@@ -745,6 +869,17 @@ void remove_client(pid_t pid)
     }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
+// print_client_list
+// ===================================================================
+// Input: void
+//
+// Output: void
+//
+// Purpose:
+// Prints the current number of connected clients and each child process's
+// PID, client port number, and service time.
+///////////////////////////////////////////////////////////////////////////////////////
 void print_client_list(void)
 {
     time_t now = time(NULL);
@@ -761,6 +896,18 @@ void print_client_list(void)
     }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
+// sigchldHandler
+// ===================================================================
+// Input: int signum -> Signal number for SIGCHLD
+//
+// Output: void
+//
+// Purpose:
+// Handles SIGCHLD when a child process terminates.
+// It collects terminated child processes using waitpid() and removes
+// their information from the client process list.
+///////////////////////////////////////////////////////////////////////////////////////
 void sigchldHandler(int signum)
 {
     int status;
@@ -772,12 +919,35 @@ void sigchldHandler(int signum)
     }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
+// sigalrmHandler
+// ===================================================================
+// Input: int signum -> Signal number for SIGALRM
+//
+// Output: void
+//
+// Purpose:
+// Handles SIGALRM to print the current child process list every 10 seconds.
+// After printing the list, it resets the alarm for the next 10-second interval.
+///////////////////////////////////////////////////////////////////////////////////////
 void sigalrmHandler(int signum)
 {
     print_client_list();
     alarm(10);
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
+// sigintHandler
+// ===================================================================
+// Input: int signum -> Signal number generated by Ctrl+C
+//
+// Output: void
+//
+// Purpose:
+// Handles SIGINT in the server process.
+// When the server receives Ctrl+C, it sends termination signals to all
+// child processes, closes the server socket, and terminates the server.
+///////////////////////////////////////////////////////////////////////////////////////
 void sigintHandler(int signum)
 {
     printf("\nServer will be terminated.\n");
