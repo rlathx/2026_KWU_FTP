@@ -2,7 +2,7 @@
 // File Name : srv.c
 // Date      : 2026/05/19
 // OS        : Ubuntu 20.04.6 LTS 64bits
-// Author    : Kim Tae Hyun
+// Author    : Kim Tae Hyeon
 // Student ID: 2024402034
 // --------------------------------------------------------------------
 // Title     : System Programming Assignment #3-1 ( ftp server )
