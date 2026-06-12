@@ -1,0 +1,128 @@
+[2026-06-12 20:16:04] Server is started
+[2026-06-12 20:16:24] [IP:127.0.0.1] [Port:59408] [User:] Server reply: 220 sswlab.kw.ac.kr FTP server (version myftp [1.0] Fri Jun 12 20:16:24 KST 2026) ready.
+[2026-06-12 20:16:31] [IP:127.0.0.1] [Port:59408] [User:] Client command: USER test
+[2026-06-12 20:16:31] [IP:127.0.0.1] [Port:59408] [User:] Server reply: 430 Invalid username or password
+[2026-06-12 20:16:34] [IP:127.0.0.1] [Port:59408] [User:] Client command: USER test1
+[2026-06-12 20:16:34] [IP:127.0.0.1] [Port:59408] [User:] Server reply: 331 Password required for test1.
+[2026-06-12 20:16:35] [IP:127.0.0.1] [Port:59408] [User:] Client command: PASS ********
+[2026-06-12 20:16:35] [IP:127.0.0.1] [Port:59408] [User:] Server reply: 430 Invalid username or password
+[2026-06-12 20:16:38] [IP:127.0.0.1] [Port:59408] [User:] Client command: USER test1
+[2026-06-12 20:16:38] [IP:127.0.0.1] [Port:59408] [User:] Server reply: 331 Password required for test1.
+[2026-06-12 20:16:39] [IP:127.0.0.1] [Port:59408] [User:] Client command: PASS ********
+[2026-06-12 20:16:39] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 230 User test1 logged in.
+[2026-06-12 20:16:39] [IP:127.0.0.1] [Port:59408] [User:test1] Authenticated-user connects to server
+[2026-06-12 20:16:48] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: PWD
+[2026-06-12 20:16:48] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 257 "/home/kw2024402034/2026_FTP/Assignment3_3_A_2024402034_김태현" is current directory.
+[2026-06-12 20:16:55] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: PORT 127,0,0,1,134,171
+[2026-06-12 20:16:55] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 200 PORT command performed successfully.
+[2026-06-12 20:16:55] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: NLST -al
+[2026-06-12 20:16:55] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 150 Opening data connection for directory list.
+[2026-06-12 20:16:55] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 226 Complete transmission.
+[2026-06-12 20:17:15] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: CWD immi
+[2026-06-12 20:17:15] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 550 immi: Can't find such file or directory.
+[2026-06-12 20:17:19] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: CWD imsi
+[2026-06-12 20:17:19] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 250 CWD command succeeds.
+[2026-06-12 20:17:24] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: PWD
+[2026-06-12 20:17:24] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 257 "/home/kw2024402034/2026_FTP/Assignment3_3_A_2024402034_김태현/imsi" is current directory.
+[2026-06-12 20:17:27] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: CDUP
+[2026-06-12 20:17:27] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 250 CWD command performed successfully.
+[2026-06-12 20:17:33] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: TYPE I
+[2026-06-12 20:17:33] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 200 Type set to I.
+[2026-06-12 20:17:36] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: TYPE A
+[2026-06-12 20:17:36] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 200 Type set to A.
+[2026-06-12 20:17:48] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: TYPE binary
+[2026-06-12 20:17:48] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 200 Type set to I.
+[2026-06-12 20:17:55] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: TYPE ascii
+[2026-06-12 20:17:55] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 200 Type set to A.
+[2026-06-12 20:18:08] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: DELE vhdl
+[2026-06-12 20:18:08] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 550 vhdl: Can't find such file or directory.
+[2026-06-12 20:18:33] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: RNFR imsi RNTO temp
+[2026-06-12 20:18:33] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 350 File exists, ready to rename.
+[2026-06-12 20:18:33] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 250 RNTO command succeeds.
+[2026-06-12 20:18:43] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: MKD imsi
+[2026-06-12 20:18:43] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 250 MKD command performed successfully.
+[2026-06-12 20:18:52] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: RMD imsi
+[2026-06-12 20:18:52] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 250 RMD command performed successfully.
+[2026-06-12 20:19:17] [IP:127.0.0.1] [Port:59408] [User:test1] Client command: QUIT
+[2026-06-12 20:19:17] [IP:127.0.0.1] [Port:59408] [User:test1] Server reply: 221 Goodbye.
+[2026-06-12 20:19:17] [IP:127.0.0.1] [Port:59408] [User:test1] Client disconnected
+[2026-06-12 20:19:29] Server is terminated
+[2026-06-12 20:45:33] Server is started
+[2026-06-12 20:45:43] [IP:127.0.0.1] [Port:38136] [User:] Server reply: 220 sswlab.kw.ac.kr FTP server (version myftp [1.0] Fri Jun 12 20:45:43 KST 2026) ready.
+[2026-06-12 20:45:50] [IP:127.0.0.1] [Port:38136] [User:] Client command: USER test1
+[2026-06-12 20:45:50] [IP:127.0.0.1] [Port:38136] [User:] Server reply: 331 Password required for test1.
+[2026-06-12 20:45:54] [IP:127.0.0.1] [Port:38136] [User:] Client command: PASS ********
+[2026-06-12 20:45:54] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 230 User test1 logged in.
+[2026-06-12 20:45:54] [IP:127.0.0.1] [Port:38136] [User:test1] Authenticated-user connects to server
+[2026-06-12 20:46:01] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: PWD
+[2026-06-12 20:46:01] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 257 "/home/kw2024402034/2026_FTP/Assignment3_3_A_2024402034_김태현" is current directory.
+[2026-06-12 20:46:08] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: PORT 127,0,0,1,44,31
+[2026-06-12 20:46:08] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 200 PORT command performed successfully.
+[2026-06-12 20:46:08] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: NLST -al
+[2026-06-12 20:46:08] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 150 Opening data connection for directory list.
+[2026-06-12 20:46:08] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 226 Complete transmission.
+[2026-06-12 20:46:21] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: CWD IMSI
+[2026-06-12 20:46:21] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 550 IMSI: Can't find such file or directory.
+[2026-06-12 20:46:25] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: CWD imsi
+[2026-06-12 20:46:25] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 250 CWD command succeeds.
+[2026-06-12 20:46:28] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: PWD
+[2026-06-12 20:46:28] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 257 "/home/kw2024402034/2026_FTP/Assignment3_3_A_2024402034_김태현/imsi" is current directory.
+[2026-06-12 20:46:34] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: CDUP
+[2026-06-12 20:46:34] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 250 CWD command performed successfully.
+[2026-06-12 20:46:39] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: TYPE I
+[2026-06-12 20:46:39] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 201 Type set to I.
+[2026-06-12 20:46:41] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: TYPE A
+[2026-06-12 20:46:41] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 201 Type set to A.
+[2026-06-12 20:46:47] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: TYPE binary
+[2026-06-12 20:46:47] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 201 Type set to I.
+[2026-06-12 20:46:53] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: TYPE ascii
+[2026-06-12 20:46:53] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 201 Type set to A.
+[2026-06-12 20:46:58] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: DELE vhdl
+[2026-06-12 20:46:58] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 550 vhdl: Can't find such file or directory.
+[2026-06-12 20:47:39] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: DELE exam
+[2026-06-12 20:47:39] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 250 DELE command performed successfully.
+[2026-06-12 20:47:50] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: RNFR imsi RNTO temp
+[2026-06-12 20:47:50] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 350 File exists, ready to rename.
+[2026-06-12 20:47:50] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 250 RNTO command succeeds.
+[2026-06-12 20:48:00] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: MKD imsi
+[2026-06-12 20:48:00] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 250 MKD command performed successfully.
+[2026-06-12 20:48:06] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: RMD imsi
+[2026-06-12 20:48:06] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 250 RMD command performed successfully.
+[2026-06-12 20:48:22] [IP:127.0.0.1] [Port:38136] [User:test1] Client command: QUIT
+[2026-06-12 20:48:22] [IP:127.0.0.1] [Port:38136] [User:test1] Server reply: 221 Goodbye
+[2026-06-12 20:48:22] [IP:127.0.0.1] [Port:38136] [User:test1] Client disconnected
+[2026-06-12 20:49:20] [IP:127.0.0.1] [Port:43888] [User:] Server reply: 220 sswlab.kw.ac.kr FTP server (version myftp [1.0] Fri Jun 12 20:49:20 KST 2026) ready.
+[2026-06-12 20:49:30] [IP:127.0.0.1] [Port:43888] [User:] Client command: USER test1
+[2026-06-12 20:49:30] [IP:127.0.0.1] [Port:43888] [User:] Server reply: 331 Password required for test1.
+[2026-06-12 20:49:31] [IP:127.0.0.1] [Port:43888] [User:] Client command: PASS ********
+[2026-06-12 20:49:31] [IP:127.0.0.1] [Port:43888] [User:test1] Server reply: 230 User test1 logged in.
+[2026-06-12 20:49:31] [IP:127.0.0.1] [Port:43888] [User:test1] Authenticated-user connects to server
+[2026-06-12 20:49:35] [IP:127.0.0.1] [Port:43888] [User:test1] Client command: PORT 127,0,0,1,86,227
+[2026-06-12 20:49:35] [IP:127.0.0.1] [Port:43888] [User:test1] Server reply: 200 PORT command performed successfully.
+[2026-06-12 20:49:35] [IP:127.0.0.1] [Port:43888] [User:test1] Client command: NLST
+[2026-06-12 20:49:35] [IP:127.0.0.1] [Port:43888] [User:test1] Server reply: 150 Opening data connection for directory list.
+[2026-06-12 20:49:35] [IP:127.0.0.1] [Port:43888] [User:test1] Server reply: 226 Complete transmission.
+[2026-06-12 20:50:07] [IP:127.0.0.1] [Port:43888] [User:test1] Client command: PORT 127,0,0,1,187,126
+[2026-06-12 20:50:07] [IP:127.0.0.1] [Port:43888] [User:test1] Server reply: 200 PORT command performed successfully.
+[2026-06-12 20:50:07] [IP:127.0.0.1] [Port:43888] [User:test1] Client command: RETR exam
+[2026-06-12 20:50:07] [IP:127.0.0.1] [Port:43888] [User:test1] Server reply: 150 Opening binary mode data connection for exam.
+[2026-06-12 20:50:07] [IP:127.0.0.1] [Port:43888] [User:test1] RETR type=binary bytes=6
+[2026-06-12 20:50:07] [IP:127.0.0.1] [Port:43888] [User:test1] Server reply: 226 Complete transmission.
+[2026-06-12 20:50:29] [IP:127.0.0.1] [Port:43888] [User:test1] Client command: PORT 127,0,0,1,147,97
+[2026-06-12 20:50:29] [IP:127.0.0.1] [Port:43888] [User:test1] Server reply: 200 PORT command performed successfully.
+[2026-06-12 20:50:29] [IP:127.0.0.1] [Port:43888] [User:test1] Client command: STOR vhdl
+[2026-06-12 20:50:29] [IP:127.0.0.1] [Port:43888] [User:test1] Server reply: 150 Opening binary mode data connection for vhdl.
+[2026-06-12 20:50:29] [IP:127.0.0.1] [Port:43888] [User:test1] STOR type=binary bytes=13
+[2026-06-12 20:50:29] [IP:127.0.0.1] [Port:43888] [User:test1] Server reply: 226 Complete transmission.
+[2026-06-12 20:50:36] [IP:127.0.0.1] [Port:43888] [User:test1] Client command: QUIT
+[2026-06-12 20:50:36] [IP:127.0.0.1] [Port:43888] [User:test1] Server reply: 221 Goodbye
+[2026-06-12 20:50:36] [IP:127.0.0.1] [Port:43888] [User:test1] Client disconnected
+[2026-06-12 20:50:39] [IP:127.0.0.1] [Port:41730] [User:] Server reply: 220 sswlab.kw.ac.kr FTP server (version myftp [1.0] Fri Jun 12 20:50:39 KST 2026) ready.
+[2026-06-12 20:50:43] [IP:127.0.0.1] [Port:41730] [User:] Client command: USER a
+[2026-06-12 20:50:43] [IP:127.0.0.1] [Port:41730] [User:] Server reply: 430 Invalid username or password
+[2026-06-12 20:50:48] [IP:127.0.0.1] [Port:41730] [User:] Client command: USER test1
+[2026-06-12 20:50:48] [IP:127.0.0.1] [Port:41730] [User:] Server reply: 331 Password required for test1.
+[2026-06-12 20:50:51] [IP:127.0.0.1] [Port:41730] [User:] Client command: PASS ********
+[2026-06-12 20:50:51] [IP:127.0.0.1] [Port:41730] [User:] Server reply: 430 Invalid username or password
+[2026-06-12 20:50:58] [IP:127.0.0.1] [Port:41730] [User:] Client command: USER s
+[2026-06-12 20:50:58] [IP:127.0.0.1] [Port:41730] [User:] Server reply: 530 Failed to log-in
